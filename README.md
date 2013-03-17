@@ -25,9 +25,17 @@ fs.createReadStream('path/to/packidx')
 
 return a writable stream that emits a single `'data'` event containing a `PackIDX` instance.
 
-#### PackIDX#read(Buffer objectID, Packfile fromPack, ready callback)
+#### PackIDX#find(Buffer objectID) -> {offset object} | null
 
-Read an `oid` from the pack file.
+attempt to find `objectID` in this index file. returns either an
+offset object, or `null` if the `objectID` isn't present in this pack index.
+
+if an offset object is returned, it'll look like so:
+
+```javascript
+{ offset: number | {hi: number, lo: number}
+, next: number | {hi: number, lo: number} | null }
+```
 
 ## license
 

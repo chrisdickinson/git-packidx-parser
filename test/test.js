@@ -17,7 +17,14 @@ test('parses v2 packfiles', function(assert) {
     assert.equal(data.cksum_idx.toString('base64'), expected.cksum_idx)
     assert.equal(data.cksum_pack.toString('base64'), expected.cksum_pack)
     assert.equal(data.im_fanout.toString('base64'), expected.im_fanout)
-    for(var i = 0, len = data.objects.length; i < len; ++i) {
+
+    var len = data.objects.length
+      , i = 0
+
+    function iter() {
+      if(i === len) {
+        return assert.end()
+      }
       assert.equal(data.objects[i].oid.toString('base64'), expected.objects[i].oid)
       assert.equal(data.objects[i].crc.toString('base64'), expected.objects[i].crc)
       if(data.objects[i].next !== null) {
@@ -30,8 +37,16 @@ test('parses v2 packfiles', function(assert) {
         assert.equal(data.objects[i].offset, expected.objects[i].offset)
 
       }
+
+      ++i
+      if(i % 10 === 0) {
+        setTimeout(iter, 0)
+      } else {
+        iter()
+      }
     }
-    assert.end()
+
+    iter()
   }
 })
 
