@@ -1,0 +1,56 @@
+{
+  "name": "git-packidx-parser",
+  "version": "0.0.0",
+  "description": "git pack index file parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chrisdickinson/git-packidx-parser.git"
+  },
+  "keywords": [
+    "git",
+    "packfile",
+    "packindex"
+  ],
+  "author": "Chris Dickinson <chris@neversaw.us>",
+  "license": "MIT",
+  "gitHead": "c657deff05833ffb759b1856a760c27abf295be7",
+  "dependencies": {
+    "through": "~2.2.7"
+  },
+  "devDependencies": {
+    "tape": "~0.3.0"
+  },
+  "testling": {
+    "files": [
+      "test/test.js",
+      "test/pack-fixture.js",
+      "test/fixture.js"
+    ],
+    "browsers": {
+      "ie": [
+        9,
+        10
+      ],
+      "firefox": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "chrome": [
+        20,
+        21,
+        22,
+        23,
+        "canary"
+      ],
+      "safari": [
+        6
+      ]
+    }
+}
