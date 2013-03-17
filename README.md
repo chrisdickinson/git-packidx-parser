@@ -21,15 +21,11 @@ fs.createReadStream('path/to/packidx')
 
 ## api
 
-#### packidx(packfile[, ready callback]) -> packidx stream
+#### packidx() -> packidx stream
 
-given packfile (which should provide `_read(offset, nextOffset, ready)`), return
-a writable stream that emits a single `'data'` event containing a `PackIDX` instance.
+return a writable stream that emits a single `'data'` event containing a `PackIDX` instance.
 
-if `ready` is given, it will be called with `(err, packidx)` -- `err` will be null
-if there were no errors.
-
-#### PackIDX#read(Buffer objectID, ready callback)
+#### PackIDX#read(Buffer objectID, Packfile fromPack, ready callback)
 
 Read an `oid` from the pack file.
 

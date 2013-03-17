@@ -15,7 +15,7 @@ var _ = 0
 var PACK_TOC = 0xff744f63
   , VERSION_BUF = new Buffer(8)
 
-function parse(packfile, ready) {
+function parse() {
   var stream = through(write, end)
     , state = STATE_VERSION
     , expecting = [0, 0, 0, 0, 0]
@@ -37,16 +37,6 @@ function parse(packfile, ready) {
   expecting[STATE_VERSION] = 8
   expecting[STATE_FANOUT] = 1024
   expecting[STATE_TRAILER] = 40
-
-  if(ready) {
-    stream.on('error', function(err) {
-      return ready(err)
-    })
-
-    stream.on('data', function(packidx) {
-      return ready(null, packidx)
-    })
-  }
   
   return stream
 
@@ -201,7 +191,7 @@ function parse(packfile, ready) {
     }
 
     packidx = new PackIDX(
-      packfile, fanout, objects, idx_cksum, pack_cksum
+      fanout, objects, idx_cksum, pack_cksum
     )
   }
 

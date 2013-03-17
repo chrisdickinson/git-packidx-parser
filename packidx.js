@@ -1,7 +1,6 @@
 module.exports = PackIDX
 
-function PackIDX(packfile, fanout, objects, cksum_idx, cksum_pack) {
-  this.pack = packfile
+function PackIDX(fanout, objects, cksum_idx, cksum_pack) {
   this.im_fanout = fanout
   this.objects = objects
   this.cksum_idx = cksum_idx
@@ -11,7 +10,7 @@ function PackIDX(packfile, fanout, objects, cksum_idx, cksum_pack) {
 var cons = PackIDX
   , proto = cons.prototype
 
-proto.read = function(oid, ready) {
+proto.read = function(oid, pack, ready) {
   var middle
     , first
     , cmp
@@ -30,9 +29,8 @@ proto.read = function(oid, ready) {
     } else if(cmp > 0) {
       lo = middle + 1
     } else {
-      return _read_object_at(
-          this
-        , this.objects[middle]
+      return pack._read_object_at(
+          this.objects[middle]
         , this.objects[middle].next
         , ready
       )
@@ -42,10 +40,6 @@ proto.read = function(oid, ready) {
   // it's not really an error to not
   // find the oid here.
   return ready(null, undefined)
-}
-
-function _read_object_at(packidx, offset, next_offset, ready) {
-  packidx.pack._read(offset, next_offset, ready)
 }
 
 function compare_buffers(lhs, rhs) {

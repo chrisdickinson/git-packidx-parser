@@ -7,7 +7,7 @@ var fixture = require('./fixture')
 
 test('parses v2 packfiles', function(assert) {
   var buf = new Buffer(fixture, 'base64')
-    , parser = idxparse({})
+    , parser = idxparse()
 
   parser.on('data', ready)
   parser.end(buf)
