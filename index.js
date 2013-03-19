@@ -24,7 +24,7 @@ function parse() {
     , accum = []
     , got = 0
 
-  var im_fanout = null
+  var fanout = null
     , object_count = 0
     , objects_buffer = null
     , large_offsets_buffer = null
@@ -201,7 +201,7 @@ function parse() {
       , rest
 
     for(var i = 0, len = accum.length; i < len; ++i) {
-      rest = Math.min(num - offset, offset + accum[i].length)
+      rest = Math.min(num - offset, accum[i].length)
       accum[i].copy(current, offset, 0, rest)
       offset += rest
     }
