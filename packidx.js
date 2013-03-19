@@ -23,6 +23,11 @@ proto.find = function(oid) {
 
   do { 
     middle = (lo + hi) >>> 1
+
+    if(!this.objects[middle]) {
+      return null
+    }
+
     cmp = compare_buffers(oid, this.objects[middle].oid)
     if(cmp < 0) {
       hi = middle
